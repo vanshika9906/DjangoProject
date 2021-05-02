@@ -29,7 +29,7 @@ class LoginViewTest(TestCase):
         """
         self.client.login(username='wrong', password='1q2w3e4r5tA')
         response = self.client.get('/home')
-        self.assertTrue(response.status_code, 404)
+        self.assertTrue(response.status_code, 301)
 
     def test_wrong_username(self):
         """
@@ -38,8 +38,8 @@ class LoginViewTest(TestCase):
         self.client.login(username='wrong', password='1q2w3e4r5tA')
         response = self.client.get('/login')
         # print("response", response)
-        #self.assertTrue(response.status_code, 302)
-        self.assertFalse(response.status_code, 302)
+        self.assertTrue(response.status_code, 301)
+        #self.assertFalse(response.status_code, 302)
 
     def test_wrong_password(self):
         """
