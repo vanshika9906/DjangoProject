@@ -39,10 +39,11 @@ class Product(models.Model):
 
 class Order(models.Model):
     STATUS = (
-        ('reached to sorting enter', 'reached to sorting enter'),
-        ('to quality check center', 'to quality check center'),
-        ('Out for delivery', 'Out for delivery'),
-        ('Delivered', 'Delivered'),
+        ('Crates packed and moved to QC center', 'Crates packed and moved to QC center'),
+        ('Reached to QC center and passed Quality check', 'Reached to QC center and passed Quality check'),
+        ('Crates loaded on Truck', 'Crates loaded on Truck'),
+        ('Crates out for Delivery', 'Crates out for Delivery'),
+        ('Crates Delivered', 'Crates Delivered'),
     )
 
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)

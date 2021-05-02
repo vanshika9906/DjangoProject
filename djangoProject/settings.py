@@ -24,8 +24,10 @@ SECRET_KEY = 'g95elkn1f$fs08yxvkckk9^0rh!3zjxvzz9vl+ilog%^iu$@4f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://fresh-greens.herokuapp.com/','fresh-greens.herokuapp.com','0.0.0.0','http://fresh-greens.herokuapp.com/']
+ALLOWED_HOSTS = [
 
+]
+# 'https://fresh-greens.herokuapp.com/','fresh-greens.herokuapp.com','0.0.0.0','http://fresh-greens.herokuapp.com/'
 # Application definition
 
 INSTALLED_APPS = [

@@ -8,7 +8,7 @@
 
 <div class="row">
 	<div class="col-md-5">
-		<h5>CUSTOMERS:</h5>
+        <h5><b>RETAIL OUTLETS:</b> </h5>
 		<hr>
 		<div class="card card-body">
 			<a class="btn btn-primary  btn-sm btn-block" href="">Retail Outlets</a>
@@ -34,7 +34,7 @@
 	</div>
 
 	<div class="col-md-7">
-		<h5>LAST 5 ORDERS</h5>
+        <h5><b>LAST 5 ORDER OF CRATES:</b></h5>
 		<hr>
 		<div class="card card-body">
 			
@@ -67,6 +67,70 @@
 	</div>
 
 </div>
+<div class="row">
+        <div class="col-md-5">
+            <h5>Check Status of My Crate:</h5>
+            <hr>
+            <div class="card card-body">
+                {#                <a class="btn btn-primary  btn-sm btn-block" href="">Orders</a>#}
+                {##}
+                {#                <table class="table table-sm">#}
+                {#                    {{  }}#}
+                {#                    {% for order in orders %}#}
+                {#                        <tr>#}
+                {#                            <td><a class="btn btn-sm btn-info" href="{% url 'order id' order.id %}">View</a></td>#}
+                {#                            <td>{{ order.product }}</td>#}
+                {#                        </tr>#}
+                {#                    {% endfor %}#}
 
+                <form method="post" action="{% url 'generateQR' %}">{% csrf_token %}
+                    <br>
+                    <h6>Enter Crate ID: </h6>
+                    <label>
+                        <input type="text" name="order_id" placeholder="Enter Crate Id ">
+                    </label>
+                    <br>
+                    <button type="submit" value="Click" name="GenerateQR" class="btn btn-primary  btn-sm btn-block"
+                            onclick="generateQR()" href="">Generate QR
+                    </button>
+                </form>
+                <br>
+                <div class="row">
+{#                    <div class="col-md-7">#}
+{#                        <h5>LAST 5 ORDERS</h5>#}
+{#                        <hr>#}
+{#                        <div class="card card-body">#}
+{##}
+{#                            <table class="table table-sm">#}
+{#                                <tr>#}
+{#                                    <th>Id</th>#}
+{#                                    <th>Crates</th>#}
+{#                                    <th>Date Ordered</th>#}
+                                    {#                                    <th>Status</th>#}
+                                    {#                                    <th>Update</th>#}
+                                    {#                                    <th>Remove</th>#}
+{#                                </tr>#}
+{##}
+{#                                {% for order in orders %}#}
+{#                                    <tr>#}
+{#                                        <td>{{ order.id }}</td>#}
+{#                                        <td>{{ order.product }}</td>#}
+{#                                        <td>{{ order.date_created }}</td>#}
+                                        {#                                        <td>{{ order.status }}</td>#}
+                                        {#                                        <td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a>#}
+                                        {#                                        </td>#}
+                                        {##}
+                                        {#                                        <td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete</a>#}
+                                        {#                                        </td>#}
+{##}
+{#                                    </tr>#}
+{#                                {% endfor %}#}
+{#                            </table>#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 

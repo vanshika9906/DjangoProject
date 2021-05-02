@@ -109,15 +109,21 @@ def generateQR(request):
 
 def statusdisplay(request, order_id):
     # print(order_id)
-    query = '''select id,status from accounts_order where id= %s'''
+    query = '''select id,status,product_id from accounts_order where id= %s'''
     tuple = (order_id,)
     for p in AccountsOrder.objects.raw(query, tuple):
         print((p.status))
+
+    product_id = p.product_id
+    query1 = '''select id,'name' from accounts_product where id= %s'''
+    tuple1= (product_id,)
+    for f in AccountsProduct.objects.raw(query1, tuple1):
+        print((f.name))
     # qrcode = pyqrcode.create(p.status)
     # qrcode.png('myqr.png', scale=6)
     # print(os.path.abspath(os.getcwd()))
     # shutil.move('myqr.png', 'static/images/icons/myqr2.png')
-    return HttpResponse('<h1>The status of your order {} is {} </h1>'.format(order_id, p.status))
+    return HttpResponse('<h1>The status of your Crate Number {} is {} which contains {} </h1>'.format(order_id, p.status,f.name))
 
 
 def logoutUser(request):
@@ -137,22 +143,22 @@ def home(request):
     customers = Customer.objects.all()
     user_context = {"orders": orders, "customers": customers}
     total_customers = customers.count()
-    if request.user.username == "admin":
+    # if request.user.username == "admin":
         # return render(request, 'accounts/dashboard.html')
-        total_orders = orders.count()
-        Harvested = orders.filter(status='Harvested').count()
-        Sorting_center = orders.filter(status='Sorting center').count()
-        Quality_check_center = orders.filter(status='quality check center').count()
-        out_for_delivery = orders.filter(status='out for delivery').count()
+    total_orders = orders.count()
+    Harvested = orders.filter(status='Harvested').count()
+    Sorting_center = orders.filter(status='Sorting center').count()
+    Quality_check_center = orders.filter(status='quality check center').count()
+    out_for_delivery = orders.filter(status='out for delivery').count()
 
-        context = {'orders': orders, 'customers': customers,
-                   'total_orders': total_orders, 'Harvested': Harvested,
-                   'Sorting center': Sorting_center, 'quality check center': Quality_check_center,
-                   'out for delivery': out_for_delivery}
+    context = {'orders': orders, 'customers': customers,
+               'total_orders': total_orders, 'Harvested': Harvested,
+               'Sorting center': Sorting_center, 'quality check center': Quality_check_center,
+               'out for delivery': out_for_delivery}
 
-        return render(request, 'accounts/dashboard.html', context)
+    return render(request, 'accounts/dashboard.html', context)
 
-    return render(request, 'accounts/userOrderPage.html', context=user_context)
+    # return render(request, 'accounts/userOrderPage.html', context=user_context)
 
 
 @login_required(login_url='login')
@@ -165,7 +171,7 @@ def products(request):
 @login_required(login_url='login')
 def customer(request, pk_test):
     x = request.user.username
-    print(x)
+    # print(x)
     customer = Customer.objects.get(id=pk_test)
 
     orders = customer.order_set.all()
